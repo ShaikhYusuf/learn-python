@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { QuizServerRoutes } from '../server-info/quiz-server-routes'
 import { EMPTY, from, of } from "rxjs";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class QuizService {
   //---------------- Properties---------------
   readonly rootUrl = window.location.origin;
@@ -12,12 +12,16 @@ export class QuizService {
 
   qns: any[];
   seconds: number;
-  timer;
+  timer: any;
   qnProgress: number;
   correctAnswerCount: number = 0;
 
   //---------------- Helper Methods---------------
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.qns = [];
+    this.seconds = 0;
+    this.qnProgress = 0;
+  }
   displayTimeElapsed() {
     return (
       Math.floor(this.seconds / 3600) +
@@ -37,7 +41,7 @@ export class QuizService {
   }
 
   getParticipantName() {
-    var participant = JSON.parse(localStorage.getItem("participant"));
+    var participant = JSON.parse(localStorage.getItem("participant") || '{}');
     return participant.Name;
   }
 
@@ -58,8 +62,6 @@ export class QuizService {
   //---------------- Http Methods---------------
   getQuestions(category: string) {
     let questionList = this.serverRoutes.getQuestionList(category)
-    //let randomIndex = this.getRandomIndex(questionList.length);
-    //let fewQuestionList = randomIndex.map(index => questionList[index]);
     let fewQuestionList = questionList
     return of(fewQuestionList);
   }
@@ -70,13 +72,8 @@ export class QuizService {
   }
 
 
-  // getAnswers() {
-  //   var body = this.qns.map(x => x.Id);
-  //   return this.http.post(this.rootUrl + "/answers", body);
-  // }
-
   submitScore() {
-    var participant = JSON.parse(localStorage.getItem("participant"));
+    var participant = JSON.parse(localStorage.getItem("participant") || '{}');
     participant.Score = this.correctAnswerCount;
     participant.TimeSpent = this.seconds;
 

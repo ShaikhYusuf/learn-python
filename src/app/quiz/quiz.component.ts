@@ -1,22 +1,26 @@
 import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { QuizService } from "../shared/quiz.service";
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: "app-quiz",
+  standalone: true,
+  imports: [CommonModule, NavbarComponent],
   templateUrl: "./quiz.component.html",
   styleUrls: ["./quiz.component.css"]
 })
 export class QuizComponent implements OnInit {
-  public progressBarPercentage: Number;
-  category: string;
+  public progressBarPercentage!: number;
+  category!: string;
 
   constructor(private router: Router,
     private route: ActivatedRoute, 
     public quizService: QuizService) {
       
     // Access the route parameter
-    this.category = this.route.snapshot.paramMap.get('category');
+    this.category = this.route.snapshot.paramMap.get('category')!;
     console.log('Category:', this.category);
     localStorage.setItem("seconds", '0');
     localStorage.setItem("qnProgress", '0');
@@ -24,13 +28,13 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
 
-    if (parseInt(localStorage.getItem("seconds")) > 0) {
-      this.quizService.seconds = parseInt(localStorage.getItem("seconds"));
+    if (parseInt(localStorage.getItem("seconds") || '0') > 0) {
+      this.quizService.seconds = parseInt(localStorage.getItem("seconds") || '0');
       this.quizService.qnProgress = parseInt(
-        localStorage.getItem("qnProgress")
+        localStorage.getItem("qnProgress") || '0'
       );
 
-      this.quizService.qns = JSON.parse(localStorage.getItem("qns"));
+      this.quizService.qns = JSON.parse(localStorage.getItem("qns") || '[]');
       this.progressBarPercentage = 1;
 
       if (this.quizService.qns && 
@@ -58,7 +62,7 @@ export class QuizComponent implements OnInit {
     }, 1000);
   }
 
-  Answer(qID, choice) {
+  Answer(qID: number, choice: number) {
     this.quizService.qns[this.quizService.qnProgress].choice = choice;
     localStorage.setItem("qns", JSON.stringify(this.quizService.qns));
     this.quizService.qnProgress++;

@@ -1,14 +1,18 @@
 import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { QuizService } from "../shared/quiz.service";
 import { Router } from "@angular/router";
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: "app-result",
+  standalone: true,
+  imports: [CommonModule, NavbarComponent],
   templateUrl: "./result.component.html",
   styleUrls: ["./result.component.css"]
 })
 export class ResultComponent implements OnInit {
-  public isResultSubmitted: Boolean;
+  public isResultSubmitted: boolean;
 
   constructor(public quizService: QuizService, private router: Router) {
     this.isResultSubmitted = false;
@@ -16,14 +20,14 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     if (
-      parseInt(localStorage.getItem("qnProgress")) ==
+      parseInt(localStorage.getItem("qnProgress") || '0') ==
       this.quizService.qns.length
     ) {
-      this.quizService.seconds = parseInt(localStorage.getItem("seconds"));
+      this.quizService.seconds = parseInt(localStorage.getItem("seconds") || '0');
       this.quizService.qnProgress = parseInt(
-        localStorage.getItem("qnProgress")
+        localStorage.getItem("qnProgress") || '0'
       );
-      this.quizService.qns = JSON.parse(localStorage.getItem("qns"));
+      this.quizService.qns = JSON.parse(localStorage.getItem("qns") || '[]');
 
       this.quizService.correctAnswerCount = 0;
       this.quizService.qns.forEach(eachQuestion => {
@@ -33,15 +37,6 @@ export class ResultComponent implements OnInit {
         eachQuestion.correct = eachQuestion.answer;
       });
 
-      // this.quizService.getAnswers().subscribe((data: any) => {
-      //   this.quizService.correctAnswerCount = 0;
-      //   this.quizService.qns.forEach((e, i) => {
-      //     if (e.answer == data[i]) {
-      //       this.quizService.correctAnswerCount++;
-      //     }
-      //     e.correct = data[i];
-      //   });
-      // });
     } else {
       this.router.navigate(["/quiz"]);
     }
@@ -49,7 +44,6 @@ export class ResultComponent implements OnInit {
 
   OnSubmit() {
     this.quizService.submitScore().subscribe(() => {
-      //this.restart();
       this.isResultSubmitted = true;
     });
   }

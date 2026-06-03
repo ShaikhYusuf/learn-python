@@ -1,9 +1,9 @@
 export class Participant {
-  Id: number;
-  name: string;
-  email: string;
-  score: number;
-  timespent: Number;
+  Id: number = 0;
+  name: string = '';
+  email: string = '';
+  score: number = 0;
+  timespent: number = 0;
 
   init(Id: number, name: string, email: string) {
     this.Id = Id;

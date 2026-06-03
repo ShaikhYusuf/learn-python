@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { Router } from "@angular/router";
 import { QuizService } from "../shared/quiz.service";
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: "home-quiz",
+  standalone: true,
+  imports: [CommonModule, NavbarComponent],
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"]
 })

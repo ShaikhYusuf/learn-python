@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { QuizService } from '../shared/quiz.service';
+import { MatTableModule } from '@angular/material/table';
 
 export interface PeriodicElement {
     name: string;
@@ -26,6 +28,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
  */
 @Component({
     selector: 'app-dashboard',
+    standalone: true,
+    imports: [CommonModule, MatTableModule],
     styleUrls: ['./dashboard.component.css'],
     templateUrl: './dashboard.component.html',
 })
