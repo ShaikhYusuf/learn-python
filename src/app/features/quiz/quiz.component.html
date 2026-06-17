@@ -1,0 +1,60 @@
+<div class="quiz-wrapper" *ngIf="quizService.qns && quizService.qns.length > 0 && quizService.qnProgress != quizService.qns.length">
+  <!-- Quiz Header -->
+  <div class="quiz-header">
+    <div class="quiz-meta">
+      <span class="quiz-progress-label">Question <strong>{{ quizService.qnProgress + 1 }}</strong> of <strong>{{ quizService.qns.length }}</strong></span>
+      <span class="quiz-timer">
+        <mat-icon>timer</mat-icon>
+        {{ quizService.displayTimeElapsed() }}
+      </span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" [style.width.%]="progressBarPercentage"></div>
+    </div>
+  </div>
+
+  <!-- Quiz Card -->
+  <div class="card quiz-card">
+    <h2 class="question-text">{{ quizService.qns[quizService.qnProgress].question }}</h2>
+
+    <!-- Code Block -->
+    <div *ngIf="quizService.qns[quizService.qnProgress].codeBlock != null" class="code-block">
+      <pre><code>{{ quizService.qns[quizService.qnProgress].codeBlock }}</code></pre>
+    </div>
+
+    <!-- Image -->
+    <div *ngIf="quizService.qns[quizService.qnProgress].ImageName != null" class="quiz-image-wrapper">
+      <img [src]="quizService.rootUrl+'/Images/'+quizService.qns[quizService.qnProgress].ImageName" alt="Question image">
+    </div>
+
+    <!-- Options -->
+    <div class="options-list">
+      <ng-container *ngFor="let option of quizService.qns[quizService.qnProgress].optionList; let i = index">
+        <button *ngIf="option != null" 
+                class="option-btn" 
+                [class.correct-option]="isAnswered && (i + 1) === quizService.qns[quizService.qnProgress].answer"
+                [class.incorrect-option]="isAnswered && selectedOption === (i + 1) && (i + 1) !== quizService.qns[quizService.qnProgress].answer"
+                [disabled]="isAnswered"
+                (click)="Answer(quizService.qns[quizService.qnProgress].Id, i + 1)">
+          <span class="option-letter">{{ ['A','B','C','D','E','F'][i] }}</span>
+          <span class="option-text">{{ option }}</span>
+          
+          <span class="option-status-icon" *ngIf="isAnswered && (i + 1) === quizService.qns[quizService.qnProgress].answer">
+            <mat-icon>check_circle</mat-icon>
+          </span>
+          <span class="option-status-icon" *ngIf="isAnswered && selectedOption === (i + 1) && (i + 1) !== quizService.qns[quizService.qnProgress].answer">
+            <mat-icon>cancel</mat-icon>
+          </span>
+        </button>
+      </ng-container>
+    </div>
+
+    <!-- Action Bar (Next Question) -->
+    <div class="quiz-actions" *ngIf="isAnswered">
+      <button class="btn btn-primary next-btn" (click)="nextQuestion()">
+        <span>{{ quizService.qnProgress === quizService.qns.length - 1 ? 'Finish Quiz' : 'Next Question' }}</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

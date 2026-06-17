@@ -1,1 +1,66 @@
-<router-outlet></router-outlet>
+<div class="app-layout">
+  <!-- Sticky Header -->
+  <header class="app-header">
+    <div class="app-brand">
+      <button class="sidebar-toggle" (click)="toggleSidebar()" aria-label="Toggle Navigation">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="app-title">{{ siteTitle }}</span>
+    </div>
+    <div class="header-actions">
+      <button mat-button (click)="navigate('/home')" *ngIf="isLoggedIn()">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      
+      <ng-container *ngIf="isLoggedIn(); else loginBtn">
+        <span class="user-greeting">Welcome, <strong>{{ getUserName() }}</strong></span>
+        <button mat-button (click)="logout()" class="logout-btn">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </ng-container>
+      
+      <ng-template #loginBtn>
+        <button mat-button (click)="navigate('/register')">
+          <mat-icon>login</mat-icon>
+          <span>Login / Register</span>
+        </button>
+      </ng-template>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- Sidebar Backdrop for mobile -->
+    <div class="sidebar-backdrop" *ngIf="isSidebarActive" (click)="toggleSidebar()"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar" [class.sidebar-open]="isSidebarActive" [class.sidebar-collapsed]="!isSidebarActive">
+      <nav class="sidebar-menu">
+        <div class="menu-item" *ngFor="let item of menuItems">
+          <div class="menu-link-wrapper" [class.active]="selectedLessonId === item.id">
+            <a (click)="selectLesson(item.id, item.url)" class="menu-link">
+              <mat-icon>{{ item.id === 'home' ? 'home' : 'bookmark' }}</mat-icon>
+              <span>{{ item.name }}</span>
+            </a>
+            
+            <!-- Submenu for Quizzes if active -->
+            <div class="lesson-submenus" *ngIf="item.quiz && selectedLessonId === item.id">
+              <a (click)="navigate('/' + item.quiz)" class="submenu-link">
+                <mat-icon>quiz</mat-icon>
+                <span>Quiz</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-content">
+      <div class="content-container">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>

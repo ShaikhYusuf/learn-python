@@ -1,0 +1,137 @@
+.learn-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.learn-header {
+  margin-bottom: 2.5rem;
+}
+
+.learn-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.learn-subtitle {
+  color: var(--color-secondary);
+  font-size: 1.05rem;
+}
+
+.learn-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.learn-card {
+  padding: 2rem;
+  transition: transform 0.2s ease;
+}
+
+.learn-card:hover {
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.question-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--color-accent-light);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+}
+
+.id-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+.question-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  color: var(--color-text);
+}
+
+.learn-image-wrapper {
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.learn-image-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.option-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.option-item.correct-option {
+  background: rgba(16, 185, 129, 0.04);
+  border-color: var(--color-accent-green);
+}
+
+.option-item.correct-option .option-letter {
+  background: var(--color-accent-green);
+  color: var(--color-white);
+}
+
+.correct-badge {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent-green);
+}
+
+.correct-badge mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { QuizServerRoutes } from '../server-info/quiz-server-routes'
+import { QuizServerRoutes } from '../features/server-info/quiz-server-routes'
 import { EMPTY, from, of } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
@@ -42,17 +42,13 @@ export class QuizService {
 
   getParticipantName() {
     var participant = JSON.parse(localStorage.getItem("participant") || '{}');
-    return participant.Name;
+    return participant.name || participant.Name || 'Guest';
   }
 
   insertParticipant(name: string, email: string) {
-    var participantInfo = {
-      name: name,
-      email: email
-    };
-    localStorage.setItem("participant", JSON.stringify(participantInfo))
-    this.serverRoutes.registerParticipant(name, email)
-    return of(participantInfo);
+    let participant = this.serverRoutes.registerParticipant(name, email);
+    localStorage.setItem("participant", JSON.stringify(participant));
+    return of(participant);
   }
 
   getParticipantList() {
@@ -83,6 +79,6 @@ export class QuizService {
       participant.TimeSpent,
     )
 
-    return EMPTY;
+    return of(true);
   }
 }

@@ -1,0 +1,27 @@
+<div class="register-wrapper">
+  <div class="card register-card">
+    <h2 class="register-title">Welcome to Python Learning</h2>
+    <p class="register-subtitle">Sign up to track your learning progress, take quizzes, and view the global leaderboard.</p>
+    
+    <form #registerForm="ngForm" (ngSubmit)="OnSubmit(name.value, email.value)" class="register-form">
+      <div class="form-group">
+        <label for="name" class="form-label">Full Name</label>
+        <div class="input-wrapper">
+          <input class="input" type="text" id="name" name="Name" #name placeholder="John Doe" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-wrapper">
+          <input class="input" type="email" id="email" name="Email" #email placeholder="john@example.com" [pattern]="emailPattern" required>
+        </div>
+      </div>
+      
+      <button class="btn btn-primary register-btn" type="submit" [disabled]="!registerForm.valid">
+        <span>Get Started</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,215 @@
+.quiz-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.quiz-header {
+  margin-bottom: 2rem;
+}
+
+.quiz-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-progress-label {
+  font-size: 0.95rem;
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+.quiz-progress-label strong {
+  color: var(--color-text);
+}
+
+.quiz-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.quiz-timer mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(99, 102, 241, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-purple));
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quiz-card {
+  padding: 2.5rem;
+}
+
+.question-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+}
+
+.code-block {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-mono, 'Courier New', monospace);
+  font-size: 0.9rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.code-block pre {
+  margin: 0;
+}
+
+.quiz-image-wrapper {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.quiz-image-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-family-sans);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.option-btn:hover:not(:disabled) {
+  background: var(--color-white);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+  transform: translateX(4px);
+}
+
+.option-btn:active:not(:disabled) {
+  transform: translateX(2px) scale(0.99);
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+}
+
+.option-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.option-text {
+  flex: 1;
+}
+
+/* Correct and Incorrect Options Feedback */
+.option-btn.correct-option {
+  background: rgba(16, 185, 129, 0.04) !important;
+  border-color: var(--color-success) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+.option-btn.correct-option .option-letter {
+  background: var(--color-success) !important;
+  color: var(--color-white) !important;
+}
+
+.option-btn.incorrect-option {
+  background: rgba(244, 63, 94, 0.04) !important;
+  border-color: var(--color-error) !important;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.1) !important;
+}
+
+.option-btn.incorrect-option .option-letter {
+  background: var(--color-error) !important;
+  color: var(--color-white) !important;
+}
+
+.option-status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.correct-option .option-status-icon {
+  color: var(--color-success);
+}
+
+.incorrect-option .option-status-icon {
+  color: var(--color-error);
+}
+
+/* Quiz Actions Transition Panel */
+.quiz-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  animation: slideInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.next-btn {
+  padding: 0.85rem 2rem;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

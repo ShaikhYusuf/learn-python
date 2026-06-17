@@ -1,0 +1,52 @@
+<div class="dashboard-wrapper">
+  <div class="dashboard-header">
+    <h2 class="dashboard-title">Leaderboard</h2>
+    <p class="dashboard-subtitle">Top learners and their scores based on speed and accuracy.</p>
+  </div>
+
+  <div class="card table-card">
+    <table mat-table [dataSource]="participantList" class="leaderboard-table">
+      
+      <!-- Rank Column -->
+      <ng-container matColumnDef="rank">
+        <th mat-header-cell *matHeaderCellDef class="col-rank"> Rank </th>
+        <td mat-cell *matCellDef="let element; let i = index" class="col-rank">
+          <div class="rank-badge" [class.rank-1]="i === 0" [class.rank-2]="i === 1" [class.rank-3]="i === 2">
+            <mat-icon *ngIf="i < 3">emoji_events</mat-icon>
+            <span *ngIf="i >= 3">{{ i + 1 }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="col-name"> Learner </th>
+        <td mat-cell *matCellDef="let element" class="col-name font-semibold">
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <!-- Score Column -->
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef class="col-score"> Score </th>
+        <td mat-cell *matCellDef="let element" class="col-score font-bold highlight-text">
+          {{ element.score }}
+        </td>
+      </ng-container>
+
+      <!-- Timing Column -->
+      <ng-container matColumnDef="timing">
+        <th mat-header-cell *matHeaderCellDef class="col-timing"> Time Taken </th>
+        <td mat-cell *matCellDef="let element" class="col-timing secondary-text">
+          <div class="time-wrapper">
+            <mat-icon class="time-icon">timer</mat-icon>
+            <span>{{ element.timespent }}s</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" [class.top-three]="i < 3"></tr>
+    </table>
+  </div>
+</div>

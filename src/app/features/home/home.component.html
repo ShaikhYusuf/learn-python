@@ -1,0 +1,25 @@
+<div class="home-wrapper">
+  <div class="home-header">
+    <h2 class="home-title">Select a Subject</h2>
+    <p class="home-subtitle">Choose a topic to start learning or test your knowledge with a quiz.</p>
+  </div>
+
+  <div class="subject-grid">
+    <div class="subject-card card" *ngFor="let eachSubject of subjectList; let j = index">
+      <div class="subject-icon">
+        <mat-icon>code</mat-icon>
+      </div>
+      <h3 class="subject-name">{{ eachSubject.title }}</h3>
+      <div class="subject-actions">
+        <button class="btn btn-secondary" (click)="learn(j)">
+          <mat-icon>menu_book</mat-icon>
+          <span>Learn</span>
+        </button>
+        <button class="btn btn-primary" (click)="quiz(j)">
+          <mat-icon>quiz</mat-icon>
+          <span>Quiz</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="learn-wrapper">
+  <div class="learn-header">
+    <h2 class="learn-title">Study & Learn</h2>
+    <p class="learn-subtitle">Review the full list of questions and study the correct answers before taking the quiz.</p>
+  </div>
+
+  <div class="learn-list">
+    <div class="card learn-card" *ngFor="let question of questionList; let i = index">
+      <div class="card-header">
+        <span class="question-badge">Concept {{ i + 1 }}</span>
+        <span class="id-badge">ID: #{{ question.Id }}</span>
+      </div>
+
+      <p class="question-text">{{ question.question }}</p>
+
+      <!-- Code Block -->
+      <div *ngIf="question.codeBlock != null" class="code-block">
+        <pre><code>{{ question.codeBlock }}</code></pre>
+      </div>
+
+      <!-- Image -->
+      <div *ngIf="question.ImageName != null" class="learn-image-wrapper">
+        <img [src]="quizService.rootUrl+'/Images/'+question.ImageName" alt="Study reference image">
+      </div>
+
+      <!-- Options -->
+      <div class="options-list">
+        <div *ngFor="let option of question.optionList; let j = index" 
+             class="option-item"
+             [class.correct-option]="(j + 1) === question.answer">
+          <span class="option-letter">{{ ['A','B','C','D','E','F'][j] }}</span>
+          <span class="option-text">{{ option }}</span>
+          <span class="correct-badge" *ngIf="(j + 1) === question.answer">
+            <mat-icon>check_circle</mat-icon>
+            <span>Correct Answer</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

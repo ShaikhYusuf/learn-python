@@ -1,0 +1,89 @@
+<div class="result-wrapper">
+  <div class="card result-card">
+    <div class="result-header">
+      <div class="trophy-badge">
+        <mat-icon class="trophy-icon">emoji_events</mat-icon>
+      </div>
+      <div class="result-info">
+        <span class="result-badge">Quiz Completed</span>
+        <h2 class="participant-name">{{ quizService.getParticipantName() }}</h2>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Score</span>
+        <span class="stat-value highlight">{{ quizService.correctAnswerCount }} / {{ quizService.qns.length }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Accuracy</span>
+        <span class="stat-value">{{ ((quizService.correctAnswerCount / quizService.qns.length) * 100) | number:'1.0-0' }}%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Time Spent</span>
+        <span class="stat-value">{{ quizService.displayTimeElapsed() }}</span>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn btn-primary submit-btn" (click)="OnSubmit()" [disabled]="isResultSubmitted">
+        <mat-icon>cloud_upload</mat-icon>
+        <span>Submit Score</span>
+      </button>
+      <button class="btn btn-secondary leaderboard-btn" (click)="OnDashboard()" [disabled]="!isResultSubmitted">
+        <mat-icon>leaderboard</mat-icon>
+        <span>Leaderboard</span>
+      </button>
+      <button class="btn btn-secondary restart-btn" (click)="restart()" title="Restart Quiz">
+        <mat-icon>replay</mat-icon>
+        <span>Retry</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="review-section">
+    <h3 class="review-title">Questions Review</h3>
+    
+    <div class="review-list">
+      <div class="card review-card" 
+           *ngFor="let qn of quizService.qns; let i = index" 
+           [class.correct-card]="qn.choice == qn.answer"
+           [class.incorrect-card]="qn.choice != qn.answer">
+        
+        <div class="review-header">
+          <span class="question-number">Question {{ i + 1 }}</span>
+          <div class="status-badge" [class.correct-badge]="qn.choice == qn.answer" [class.incorrect-badge]="qn.choice != qn.answer">
+            <mat-icon>{{ qn.choice == qn.answer ? 'check_circle' : 'cancel' }}</mat-icon>
+            <span>{{ qn.choice == qn.answer ? 'Correct' : 'Incorrect' }}</span>
+          </div>
+        </div>
+
+        <p class="review-question-text">{{ qn.question }}</p>
+
+        <!-- Code Block -->
+        <div *ngIf="qn.codeBlock != null" class="code-block">
+          <pre><code>{{ qn.codeBlock }}</code></pre>
+        </div>
+
+        <div class="review-options">
+          <div *ngFor="let option of qn.optionList; let j = index" 
+               class="review-option-item"
+               [class.correct-option]="qn.answer == (j + 1)"
+               [class.selected-incorrect-option]="qn.choice == (j + 1) && qn.answer != (j + 1)">
+            <span class="option-letter-badge">{{ ['A','B','C','D','E','F'][j] }}</span>
+            <span class="option-text">{{ option }}</span>
+            
+            <span class="option-status" *ngIf="qn.answer == (j + 1)">
+              <mat-icon>check_circle</mat-icon>
+              <span>Correct Answer</span>
+            </span>
+            <span class="option-status" *ngIf="qn.choice == (j + 1) && qn.answer != (j + 1)">
+              <mat-icon>cancel</mat-icon>
+              <span>Your Selection</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
