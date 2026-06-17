@@ -288,6 +288,7 @@ html, body {
 }
 
 .sidebar-backdrop {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -300,6 +301,9 @@ html, body {
 }
 
 @media (max-width: 992px) {
+  .sidebar-backdrop {
+    display: block;
+  }
   .sidebar-toggle {
     display: flex;
   }
@@ -313,6 +317,15 @@ html, body {
   }
   .app-sidebar.sidebar-open {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 576px) {
+  .user-greeting {
+    display: none;
+  }
+  .app-title {
+    font-size: 1.1rem;
   }
 }
 

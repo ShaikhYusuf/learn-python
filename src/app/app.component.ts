@@ -14,7 +14,7 @@ import { QuizService } from './shared/quiz.service';
 })
 export class AppComponent {
   title = 'python';
-  isSidebarActive = true;
+  isSidebarActive = false;
   selectedLessonId: string = 'home';
   siteTitle = 'Python Programming Guide';
 
